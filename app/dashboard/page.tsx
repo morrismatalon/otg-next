@@ -75,9 +75,24 @@ export default async function DashboardPage() {
             <div className={styles.applications}>
               <div className={styles.secRow}>
                 <span className="lbl">Your listings</span>
-                <Link href="/dashboard/new-listing" className={styles.newBtn}>
-                  + New listing
-                </Link>
+                <div style={{ display: 'flex', gap: 12 }}>
+                  {listings.length > 0 && (
+                    <Link href="/dashboard/listings" style={{
+                      fontFamily: 'var(--font-syne), sans-serif',
+                      fontSize: 9,
+                      fontWeight: 700,
+                      letterSpacing: '0.19em',
+                      textTransform: 'uppercase',
+                      color: 'var(--muted)',
+                      padding: '10px 0',
+                    }}>
+                      Manage
+                    </Link>
+                  )}
+                  <Link href="/dashboard/new-listing" className={styles.newBtn}>
+                    + New listing
+                  </Link>
+                </div>
               </div>
 
               {listings.length === 0 ? (

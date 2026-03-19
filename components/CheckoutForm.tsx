@@ -56,12 +56,11 @@ export default function CheckoutForm({ listingId }: { listingId: string }) {
 
       <div>
         <button type="submit" className={styles.submit} disabled={pending}>
-          {pending ? 'Placing request…' : 'Send purchase request'}
+          {pending ? 'Redirecting to payment…' : 'Pay with Stripe →'}
         </button>
         <div className={styles.note}>
-          This sends a purchase request directly to the designer. No payment
-          is taken now — the designer will follow up to confirm and arrange
-          payment.
+          You&apos;ll be taken to Stripe&apos;s secure checkout to complete payment.
+          The designer will then confirm and arrange shipping.
         </div>
       </div>
     </form>

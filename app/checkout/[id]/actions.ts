@@ -1,7 +1,8 @@
 'use server'
 
 import { redirect } from 'next/navigation'
-import { createClient } from '@/lib/supabase/server'
+import { getListingById } from '@/lib/data'
+import { stripe, toStripeAmount } from '@/lib/stripe'
 
 export interface CheckoutState {
   error?: string
@@ -11,12 +12,10 @@ export async function placeOrder(
   _prev: CheckoutState,
   formData: FormData
 ): Promise<CheckoutState> {
-  const supabase = await createClient()
-
   const listingId = formData.get('listingId') as string
   const buyerName = formData.get('buyerName') as string
   const buyerEmail = formData.get('buyerEmail') as string
-  const message = (formData.get('message') as string) || null
+  const message = (formData.get('message') as string) || ''
 
   if (!listingId || !buyerName || !buyerEmail) {
     return { error: 'Please fill in all required fields.' }
@@ -27,31 +26,47 @@ export async function placeOrder(
     return { error: 'Please enter a valid email address.' }
   }
 
-  // Verify listing exists
-  const { error: listingErr } = await supabase
-    .from('listings')
-    .select('id')
-    .eq('id', listingId)
-    .single()
-
-  if (listingErr) {
+  const listing = await getListingById(listingId)
+  if (!listing) {
     return { error: 'This listing no longer exists.' }
   }
 
-  const { data: order, error } = await supabase
-    .from('orders')
-    .insert({
-      listing_id: listingId,
-      buyer_name: buyerName,
-      buyer_email: buyerEmail,
-      message,
+  let session: { url: string | null }
+  try {
+    session = await stripe.checkout.sessions.create({
+      mode: 'payment',
+      line_items: [
+        {
+          quantity: 1,
+          price_data: {
+            currency: listing.currency.toLowerCase(),
+            unit_amount: toStripeAmount(listing.priceNum, listing.currency),
+            product_data: {
+              name: listing.name,
+              description: `${listing.designer} · ${listing.city}`,
+              images: listing.imageSrc.startsWith('http') ? [listing.imageSrc] : [],
+            },
+          },
+        },
+      ],
+      customer_email: buyerEmail,
+      metadata: {
+        listingId,
+        buyerName,
+        buyerEmail,
+        message,
+      },
+      success_url: `${process.env.NEXT_PUBLIC_SITE_URL}/orders/success?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${process.env.NEXT_PUBLIC_SITE_URL}/checkout/${listingId}`,
     })
-    .select('id')
-    .single()
-
-  if (error || !order) {
-    return { error: 'Something went wrong. Please try again.' }
+  } catch (err) {
+    console.error('[Stripe] session creation failed:', err)
+    return { error: 'Payment setup failed. Please try again.' }
   }
 
-  redirect(`/orders/${order.id}`)
+  if (!session.url) {
+    return { error: 'Could not start checkout. Please try again.' }
+  }
+
+  redirect(session.url)
 }

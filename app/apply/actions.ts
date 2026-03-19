@@ -14,6 +14,7 @@ export async function submitApplication(
   const name = formData.get('name') as string
   const studio_name = formData.get('studio') as string
   const business_type = formData.get('type') as string
+  const email = (formData.get('email') as string) || null
   const location = formData.get('location') as string
   const instagram = (formData.get('instagram') as string) || null
   const customer_volume = formData.get('volume') as string
@@ -28,6 +29,7 @@ export async function submitApplication(
     name,
     studio_name,
     business_type,
+    email,
     location,
     instagram,
     customer_volume,

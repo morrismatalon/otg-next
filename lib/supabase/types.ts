@@ -2,7 +2,7 @@ export interface DbDesigner {
   id: string
   name: string
   studio_number: string
-  location: string        // "City, Country"
+  location: string
   city: string
   country: string
   specialty: string
@@ -21,13 +21,12 @@ export interface DbListing {
   title: string
   description: string
   price: number
-  currency: string        // "JPY" | "GBP" | "EUR" | "KRW"
-  price_display: string   // "¥ 42,000" — pre-formatted
+  currency: string
+  price_display: string
   category: string
   city: string
-  images: string[]        // array of public paths or storage URLs
+  images: string[]
   created_at: string
-  // joined
   designers?: DbDesigner
 }
 
@@ -36,6 +35,7 @@ export interface DbApplication {
   name: string
   studio_name: string
   business_type: string
+  email: string | null
   instagram: string | null
   location: string
   customer_volume: string
@@ -49,8 +49,9 @@ export interface DbOrder {
   buyer_name: string
   buyer_email: string
   message: string | null
+  stripe_session_id: string | null
+  stripe_payment_intent: string | null
   status: 'pending' | 'confirmed' | 'shipped' | 'completed' | 'cancelled'
   created_at: string
-  // joined
   listings?: DbListing & { designers?: DbDesigner }
 }

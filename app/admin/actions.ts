@@ -3,6 +3,7 @@
 import { revalidatePath } from 'next/cache'
 import { createClient } from '@/lib/supabase/server'
 import { ADMIN_EMAIL } from '@/lib/constants'
+import { resend, FROM_EMAIL } from '@/lib/resend'
 import type { DbApplication } from '@/lib/supabase/types'
 
 function generateDesignerId(studioName: string): string {
@@ -71,13 +72,29 @@ async function autoCreateDesigner(
   )
 
   // Confirmation "email" (console for now)
-  console.log(
-    `[OTG] ✉  Confirmation would be sent to: ${app.name}`,
-    `\n  Subject: Your Off The Grid application has been approved`,
-    `\n  Body: Congratulations ${app.name}. Your studio "${app.studio_name}" has been approved.`,
-    `\n  Your permanent studio number is: No. ${studio_number}`,
-    `\n  You can now sign up at https://offthegrid.com/auth/sign-up to access your dashboard.`
-  )
+  // Send approval email if we have an address
+  if (app.email) {
+    const { error: emailErr } = await resend.emails.send({
+      from: FROM_EMAIL,
+      to: app.email,
+      subject: 'Your Off The Grid application has been approved',
+      html: `
+        <p>Hi ${app.name},</p>
+        <p>Congratulations — your studio <strong>${app.studio_name}</strong> has been approved to join Off The Grid.</p>
+        <p>Your permanent studio number is: <strong>No. ${studio_number}</strong></p>
+        <p>You can now create an account at <a href="${process.env.NEXT_PUBLIC_SITE_URL}/auth/sign-up">${process.env.NEXT_PUBLIC_SITE_URL}/auth/sign-up</a> to access your seller dashboard and start listing your work.</p>
+        <p>Welcome to the grid.</p>
+        <p>— The Off The Grid team</p>
+      `,
+    })
+    if (emailErr) {
+      console.error('[OTG] Failed to send approval email:', emailErr.message)
+    } else {
+      console.log(`[OTG] ✉  Approval email sent to ${app.email}`)
+    }
+  } else {
+    console.log(`[OTG] ✉  No email on file for ${app.name} — skipping approval email`)
+  }
 
   return { designerId: finalId, studioNumber: studio_number }
 }

@@ -28,6 +28,7 @@ export interface Listing {
   name: string
   price: string
   priceNum: number
+  currency: string
   city: string
   category: string
   description: string
@@ -84,6 +85,7 @@ function dbToListing(l: DbListing): Listing {
     name: l.title,
     price: l.price_display,
     priceNum: l.price,
+    currency: l.currency,
     city: l.city,
     category: l.category,
     description: l.description,
@@ -228,6 +230,19 @@ export async function getOrderById(id: string): Promise<Order | null> {
     .from('orders')
     .select('*, listings(*, designers(name, studio_number, city))')
     .eq('id', id)
+    .single()
+
+  if (error || !data) return null
+  return dbToOrder(data as DbOrder)
+}
+
+export async function getOrderByStripeSessionId(sessionId: string): Promise<Order | null> {
+  const supabase = await createClient()
+
+  const { data, error } = await supabase
+    .from('orders')
+    .select('*, listings(*, designers(name, studio_number, city))')
+    .eq('stripe_session_id', sessionId)
     .single()
 
   if (error || !data) return null

@@ -62,6 +62,19 @@ export default function ApplyForm() {
       </div>
 
       <div className={styles.fieldGroup}>
+        <label className={styles.label} htmlFor="email">Email address</label>
+        <input
+          id="email"
+          name="email"
+          className={styles.input}
+          type="email"
+          placeholder="you@example.com"
+          required
+          autoComplete="email"
+        />
+      </div>
+
+      <div className={styles.fieldGroup}>
         <label className={styles.label} htmlFor="location">Location</label>
         <input
           id="location"
