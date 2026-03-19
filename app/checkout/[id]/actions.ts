@@ -2,7 +2,7 @@
 
 import { redirect } from 'next/navigation'
 import { getListingById } from '@/lib/data'
-import { stripe, toStripeAmount } from '@/lib/stripe'
+import { getStripe, toStripeAmount } from '@/lib/stripe'
 
 export interface CheckoutState {
   error?: string
@@ -33,7 +33,7 @@ export async function placeOrder(
 
   let session: { url: string | null }
   try {
-    session = await stripe.checkout.sessions.create({
+    session = await getStripe().checkout.sessions.create({
       mode: 'payment',
       line_items: [
         {
