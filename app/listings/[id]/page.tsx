@@ -1,3 +1,4 @@
+import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
@@ -17,6 +18,27 @@ export async function generateStaticParams() {
   }
 }
 
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ id: string }>
+}): Promise<Metadata> {
+  const { id } = await params
+  const listing = await getListingById(id)
+  if (!listing) return { title: 'Listing not found' }
+  return {
+    title: `${listing.name} by ${listing.designer}`,
+    description: listing.description.slice(0, 160),
+    openGraph: {
+      title: `${listing.name} — Off The Grid`,
+      description: `${listing.price} · ${listing.city} · ${listing.designer}`,
+      images: listing.imageSrc.startsWith('http')
+        ? [{ url: listing.imageSrc }]
+        : [{ url: '/card-1.jpg' }],
+    },
+  }
+}
+
 export default async function ListingPage({
   params,
 }: {
@@ -33,8 +55,8 @@ export default async function ListingPage({
       <Nav />
 
       <div className={styles.wrap}>
-        <Link href="/designers" className={styles.back}>
-          ← Back to listings
+        <Link href="/browse" className={styles.back}>
+          ← Browse listings
         </Link>
 
         <div className={styles.layout}>
@@ -53,7 +75,7 @@ export default async function ListingPage({
 
           <div className={styles.detailCol}>
             <Link
-              href={`/designers/${listing.designerId}`}
+              href={`/studio/${listing.designerId}`}
               className={styles.designerLink}
             >
               {listing.designer}
@@ -93,7 +115,7 @@ export default async function ListingPage({
             </Link>
 
             <Link
-              href={`/designers/${listing.designerId}`}
+              href={`/studio/${listing.designerId}`}
               className={styles.studioLink}
             >
               View studio →

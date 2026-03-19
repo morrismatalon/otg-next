@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import styles from '@/styles/ApplyBand.module.css'
 
 export default function ApplyBand() {
@@ -12,7 +13,7 @@ export default function ApplyBand() {
           Off The Grid is for independent designers working alone or in small
           studios. If you&apos;re under the threshold, you belong here.
         </p>
-        <a href="#" className={styles.applyBtn}>Apply to sell</a>
+        <Link href="/apply" className={styles.applyBtn}>Apply to sell</Link>
       </div>
     </div>
   )

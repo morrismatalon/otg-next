@@ -1,7 +1,20 @@
+import type { Metadata } from 'next'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
 import ApplyForm from '@/components/ApplyForm'
 import styles from '@/styles/Apply.module.css'
+
+export const metadata: Metadata = {
+  title: 'Apply to sell',
+  description:
+    'Apply to sell on Off The Grid. For independent fashion designers under the customer threshold. Manual review. 5–7 days. Every application read by a person.',
+  openGraph: {
+    title: 'Apply to sell — Off The Grid',
+    description:
+      'Independent designers working alone or in small studios. Under the threshold. Apply now.',
+    images: [{ url: '/hero-bg.jpg' }],
+  },
+}
 
 export default function ApplyPage() {
   return (

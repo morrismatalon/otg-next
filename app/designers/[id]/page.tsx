@@ -1,3 +1,4 @@
+import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
@@ -15,6 +16,25 @@ export async function generateStaticParams() {
     return (data ?? []).map((d: { id: string }) => ({ id: d.id }))
   } catch {
     return []
+  }
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ id: string }>
+}): Promise<Metadata> {
+  const { id } = await params
+  const designer = await getDesignerById(id)
+  if (!designer) return { title: 'Designer not found' }
+  return {
+    title: designer.name,
+    description: designer.bio.slice(0, 160),
+    openGraph: {
+      title: `${designer.name} — Off The Grid`,
+      description: designer.bio.slice(0, 160),
+      images: [{ url: '/card-1.jpg' }],
+    },
   }
 }
 

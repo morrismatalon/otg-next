@@ -1,0 +1,88 @@
+.wrap {
+  padding-top: 88px;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+}
+
+.inner {
+  padding: 80px 48px 120px;
+  max-width: 640px;
+}
+
+.code {
+  font-family: var(--font-syne), sans-serif;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--faint);
+  margin-bottom: 24px;
+}
+
+.headline {
+  font-family: var(--font-im-fell), serif;
+  font-size: clamp(48px, 7vw, 88px);
+  font-weight: 400;
+  line-height: 0.92;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  margin-bottom: 40px;
+}
+
+.headline em {
+  font-style: italic;
+  color: var(--muted);
+}
+
+.body {
+  font-size: 10px;
+  line-height: 2.2;
+  color: var(--muted);
+  letter-spacing: 0.03em;
+  margin-bottom: 48px;
+  max-width: 440px;
+}
+
+.links {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+
+.homeLink {
+  font-family: var(--font-syne), sans-serif;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.19em;
+  text-transform: uppercase;
+  color: var(--bg);
+  background: var(--ink);
+  padding: 14px 28px;
+  transition: opacity 0.15s;
+  display: inline-block;
+}
+
+.homeLink:hover {
+  opacity: 0.75;
+}
+
+.browseLink {
+  font-family: var(--font-syne), sans-serif;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.19em;
+  text-transform: uppercase;
+  color: var(--muted);
+  transition: color 0.15s;
+}
+
+.browseLink:hover {
+  color: var(--ink);
+}
+
+@media (max-width: 768px) {
+  .inner {
+    padding: 48px 24px 80px;
+  }
+}

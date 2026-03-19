@@ -6,13 +6,13 @@ import { getAllListings } from '@/lib/data'
 
 export default async function Feed() {
   const listings = await getAllListings()
-  const featured = listings.slice(0, 4)
+  const featured = listings.slice(0, 8)
 
   return (
     <>
       <div className={styles.secRow}>
         <span className="lbl">New listings</span>
-        <Link href="/designers" className={styles.secLink}>View all →</Link>
+        <Link href="/browse" className={styles.secLink}>View all →</Link>
       </div>
       <div className={styles.listings}>
         {featured.map((item) => (

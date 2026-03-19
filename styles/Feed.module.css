@@ -22,7 +22,7 @@
 .listings {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
+  gap: 24px 16px;
   padding: 0 48px;
   margin-bottom: 80px;
 }
