@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { IM_Fell_English, DM_Mono, Syne } from 'next/font/google'
 import ProgressBar from '@/components/ProgressBar'
+import AuthProvider from '@/components/AuthProvider'
 import { SITE_URL } from '@/lib/config'
 import './globals.css'
 
@@ -65,7 +66,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     >
       <body>
         <ProgressBar />
-        {children}
+        <AuthProvider>
+          {children}
+        </AuthProvider>
       </body>
     </html>
   )

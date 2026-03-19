@@ -2,6 +2,7 @@
 
 import { revalidatePath } from 'next/cache'
 import { createClient } from '@/lib/supabase/server'
+import { createAdminClient } from '@/lib/supabase/admin'
 import { ADMIN_EMAIL } from '@/lib/constants'
 import { resend, FROM_EMAIL } from '@/lib/resend'
 import { SITE_URL } from '@/lib/config'
@@ -21,14 +22,22 @@ function generateStudioNumber(): string {
 }
 
 async function autoCreateDesigner(
-  supabase: Awaited<ReturnType<typeof createClient>>,
   app: DbApplication
 ): Promise<{ designerId: string; studioNumber: string } | null> {
+  // Use service-role client — designers table INSERT requires auth.role() = 'service_role'
+  let admin
+  try {
+    admin = createAdminClient()
+  } catch (err) {
+    console.error('[OTG] Cannot create designer — service role key missing:', err)
+    return null
+  }
+
   const id = generateDesignerId(app.studio_name)
   const studio_number = generateStudioNumber()
 
   // Ensure unique ID by appending timestamp if needed
-  const { data: existing } = await supabase
+  const { data: existing } = await admin
     .from('designers')
     .select('id')
     .eq('id', id)
@@ -41,51 +50,53 @@ async function autoCreateDesigner(
   const city = parts[0] ?? app.location
   const country = parts[1] ?? ''
 
-  const { error } = await supabase.from('designers').insert({
+  const { error } = await admin.from('designers').insert({
     id: finalId,
     name: app.name,
     studio_number,
     location: app.location,
     city,
     country,
-    specialty: 'General', // Admin can update later
+    specialty: 'General',
     categories: [],
     commissions: false,
     bio: '',
-    instagram: app.instagram,
+    instagram: app.instagram ?? null,
     verified: true,
   })
 
   if (error) {
-    console.error('[OTG] Failed to create designer record:', error.message)
+    console.error('[OTG] Failed to create designer record:', error.code, error.message)
     return null
   }
 
-  console.log(
-    `[OTG] ✓ Designer record created for approved application:`,
-    JSON.stringify({
-      designerId: finalId,
-      name: app.name,
-      studioName: app.studio_name,
-      studioNumber: studio_number,
-      location: app.location,
-    }, null, 2)
-  )
+  console.log('[OTG] ✓ Designer record created:', { designerId: finalId, studio_number, name: app.name })
 
-  // Confirmation "email" (console for now)
-  // Send approval email if we have an address
+  // Send approval email
   if (app.email) {
+    const signUpUrl = `${SITE_URL}/auth/sign-up`
     const { error: emailErr } = await resend.emails.send({
       from: FROM_EMAIL,
       to: app.email,
       subject: 'Your Off The Grid application has been approved',
       html: `
-        <p>Hi ${app.name},</p>
-        <p>Congratulations — your studio <strong>${app.studio_name}</strong> has been approved to join Off The Grid.</p>
-        <p>Your permanent studio number is: <strong>No. ${studio_number}</strong></p>
-        <p>You can now create an account at <a href="${SITE_URL}/auth/sign-up">${SITE_URL}/auth/sign-up</a> to access your seller dashboard and start listing your work.</p>
-        <p>Welcome to the grid.</p>
-        <p>— The Off The Grid team</p>
+        <p style="font-family:Georgia,serif;font-size:16px;line-height:1.7;color:#1a1a18">Hi ${app.name},</p>
+        <p style="font-family:Georgia,serif;font-size:16px;line-height:1.7;color:#1a1a18">
+          Your studio <strong>${app.studio_name}</strong> has been approved to join Off The Grid.
+        </p>
+        <p style="font-family:Georgia,serif;font-size:16px;line-height:1.7;color:#1a1a18">
+          Your permanent studio number is: <strong>No. ${studio_number}</strong>
+        </p>
+        <p style="font-family:Georgia,serif;font-size:16px;line-height:1.7;color:#1a1a18">
+          Create your account to access your seller dashboard and start listing:
+        </p>
+        <p>
+          <a href="${signUpUrl}" style="font-family:Georgia,serif;font-size:16px;color:#1a1a18">${signUpUrl}</a>
+        </p>
+        <p style="font-family:Georgia,serif;font-size:16px;line-height:1.7;color:#1a1a18">
+          After signing up, you&apos;ll land directly on your studio dashboard. Welcome to the grid.
+        </p>
+        <p style="font-family:Georgia,serif;font-size:16px;line-height:1.7;color:#6b6b68">— Off The Grid</p>
       `,
     })
     if (emailErr) {
@@ -104,6 +115,7 @@ export async function updateApplicationStatus(
   id: string,
   status: 'approved' | 'rejected'
 ): Promise<{ error?: string; designerId?: string }> {
+  // Auth check uses anon client — we need the calling user's session
   const supabase = await createClient()
 
   const { data: { user } } = await supabase.auth.getUser()
@@ -111,7 +123,7 @@ export async function updateApplicationStatus(
     return { error: 'Unauthorized' }
   }
 
-  // Fetch the application first
+  // Fetch application
   const { data: app, error: fetchErr } = await supabase
     .from('applications')
     .select('*')
@@ -123,25 +135,22 @@ export async function updateApplicationStatus(
   }
 
   // Update status
-  const { error } = await supabase
+  const { error: updateErr } = await supabase
     .from('applications')
     .update({ status })
     .eq('id', id)
 
-  if (error) return { error: error.message }
+  if (updateErr) return { error: updateErr.message }
 
-  // If approved, auto-create designer record
+  // If approved, create designer record via service role
   let designerId: string | undefined
   if (status === 'approved') {
-    const result = await autoCreateDesigner(supabase, app as DbApplication)
+    const result = await autoCreateDesigner(app as DbApplication)
     if (result) {
       designerId = result.designerId
     }
   } else {
-    console.log(
-      `[OTG] ✗ Application rejected:`,
-      JSON.stringify({ name: app.name, studio: app.studio_name, location: app.location }, null, 2)
-    )
+    console.log('[OTG] ✗ Application rejected:', { name: app.name, studio: app.studio_name })
   }
 
   revalidatePath('/admin')

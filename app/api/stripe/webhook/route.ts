@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import Stripe from 'stripe'
 import { getStripe } from '@/lib/stripe'
-import { createClient } from '@/lib/supabase/server'
+import { createBuildClient } from '@/lib/supabase/build'
 
 export async function POST(req: NextRequest) {
   const body = await req.text()
@@ -32,7 +32,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Missing metadata' }, { status: 400 })
     }
 
-    const supabase = await createClient()
+    const supabase = createBuildClient()
 
     // Idempotency: skip if order already exists for this session
     const { data: existing } = await supabase

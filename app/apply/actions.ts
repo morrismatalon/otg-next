@@ -1,5 +1,6 @@
 'use server'
 
+import { redirect } from 'next/navigation'
 import { createBuildClient } from '@/lib/supabase/build'
 
 export interface ApplyFormState {
@@ -36,13 +37,15 @@ export async function submitApplication(
   })
 
   if (error) {
-    console.error('[apply] insert failed:', error.code, error.message)
-    // PGRST205 = table not found — schema.sql + updates.sql need to be run
+    console.error('[apply] insert failed — code:', error.code, '— message:', error.message)
     if (error.code === 'PGRST205') {
-      return { error: 'Database not set up yet. Run schema.sql and updates.sql in the Supabase SQL Editor first.' }
+      return {
+        error:
+          'Database tables not set up yet. Run schema.sql then updates.sql in the Supabase SQL Editor.',
+      }
     }
-    return { error: `Submission failed: ${error.message}` }
+    return { error: `Could not submit application: ${error.message}` }
   }
 
-  return { success: true }
+  redirect('/apply/success')
 }

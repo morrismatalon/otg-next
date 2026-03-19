@@ -33,7 +33,7 @@ export default async function AccountPage() {
   // Fetch orders placed by this user
   const { data: orderRows } = await db
     .from('orders')
-    .select('id, listing_id, status, created_at, listings(title, designer_id, designers(name))')
+    .select('id, listing_id, status, created_at, listings(title, price_display, designer_id, designers(name))')
     .eq('buyer_email', user.email!)
     .order('created_at', { ascending: false })
 
@@ -97,6 +97,7 @@ export default async function AccountPage() {
                 // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 const listing = order.listings as any
                 const listingTitle = listing?.title ?? 'Listing removed'
+                const priceDisplay = listing?.price_display ?? ''
                 // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 const designerName = (listing?.designers as any)?.name ?? ''
 
@@ -113,7 +114,10 @@ export default async function AccountPage() {
                           <div className={styles.orderMeta}>{designerName}</div>
                         )}
                       </div>
-                      <div className={styles.orderStatus}>{order.status}</div>
+                      <div className={styles.orderStatus}>
+                        {priceDisplay && <span style={{ marginRight: 16, color: 'var(--ink)' }}>{priceDisplay}</span>}
+                        {order.status}
+                      </div>
                       <div className={styles.orderDate}>
                         {new Date(order.created_at).toLocaleDateString('en-GB', {
                           day: 'numeric',
