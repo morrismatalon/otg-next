@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { IM_Fell_English, DM_Mono, Syne } from 'next/font/google'
 import ProgressBar from '@/components/ProgressBar'
+import { SITE_URL } from '@/lib/config'
 import './globals.css'
 
 const imFellEnglish = IM_Fell_English({
@@ -25,10 +26,8 @@ const syne = Syne({
   display: 'swap',
 })
 
-const BASE = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://offthegrid.com'
-
 export const metadata: Metadata = {
-  metadataBase: new URL(BASE),
+  metadataBase: new URL(SITE_URL),
   title: {
     default: 'Off The Grid — Independent fashion designers',
     template: '%s — Off The Grid',

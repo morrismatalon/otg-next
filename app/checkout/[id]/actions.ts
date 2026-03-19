@@ -3,6 +3,7 @@
 import { redirect } from 'next/navigation'
 import { getListingById } from '@/lib/data'
 import { getStripe, toStripeAmount } from '@/lib/stripe'
+import { SITE_URL } from '@/lib/config'
 
 export interface CheckoutState {
   error?: string
@@ -56,8 +57,8 @@ export async function placeOrder(
         buyerEmail,
         message,
       },
-      success_url: `${process.env.NEXT_PUBLIC_SITE_URL}/orders/success?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${process.env.NEXT_PUBLIC_SITE_URL}/checkout/${listingId}`,
+      success_url: `${SITE_URL}/orders/success?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${SITE_URL}/checkout/${listingId}`,
     })
   } catch (err) {
     console.error('[Stripe] session creation failed:', err)

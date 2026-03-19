@@ -4,6 +4,7 @@ import { revalidatePath } from 'next/cache'
 import { createClient } from '@/lib/supabase/server'
 import { ADMIN_EMAIL } from '@/lib/constants'
 import { resend, FROM_EMAIL } from '@/lib/resend'
+import { SITE_URL } from '@/lib/config'
 import type { DbApplication } from '@/lib/supabase/types'
 
 function generateDesignerId(studioName: string): string {
@@ -82,7 +83,7 @@ async function autoCreateDesigner(
         <p>Hi ${app.name},</p>
         <p>Congratulations — your studio <strong>${app.studio_name}</strong> has been approved to join Off The Grid.</p>
         <p>Your permanent studio number is: <strong>No. ${studio_number}</strong></p>
-        <p>You can now create an account at <a href="${process.env.NEXT_PUBLIC_SITE_URL}/auth/sign-up">${process.env.NEXT_PUBLIC_SITE_URL}/auth/sign-up</a> to access your seller dashboard and start listing your work.</p>
+        <p>You can now create an account at <a href="${SITE_URL}/auth/sign-up">${SITE_URL}/auth/sign-up</a> to access your seller dashboard and start listing your work.</p>
         <p>Welcome to the grid.</p>
         <p>— The Off The Grid team</p>
       `,

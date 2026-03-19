@@ -1,7 +1,6 @@
 import type { MetadataRoute } from 'next'
 import { createBuildClient } from '@/lib/supabase/build'
-
-const BASE = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://offthegrid.com'
+import { SITE_URL as BASE } from '@/lib/config'
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticRoutes: MetadataRoute.Sitemap = [
