@@ -1,6 +1,6 @@
 'use server'
 
-import { createClient } from '@/lib/supabase/server'
+import { createBuildClient } from '@/lib/supabase/build'
 
 export interface ApplyFormState {
   error?: string
@@ -23,7 +23,7 @@ export async function submitApplication(
     return { error: 'Please fill in all required fields.' }
   }
 
-  const supabase = await createClient()
+  const supabase = createBuildClient()
 
   const { error } = await supabase.from('applications').insert({
     name,
@@ -36,7 +36,12 @@ export async function submitApplication(
   })
 
   if (error) {
-    return { error: 'Something went wrong. Please try again.' }
+    console.error('[apply] insert failed:', error.code, error.message)
+    // PGRST205 = table not found — schema.sql + updates.sql need to be run
+    if (error.code === 'PGRST205') {
+      return { error: 'Database not set up yet. Run schema.sql and updates.sql in the Supabase SQL Editor first.' }
+    }
+    return { error: `Submission failed: ${error.message}` }
   }
 
   return { success: true }

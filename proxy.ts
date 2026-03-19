@@ -43,6 +43,11 @@ export async function proxy(request: NextRequest) {
     return NextResponse.redirect(new URL('/auth/sign-in', request.url))
   }
 
+  // Protect /account
+  if (pathname.startsWith('/account') && !user) {
+    return NextResponse.redirect(new URL('/auth/sign-in', request.url))
+  }
+
   return response
 }
 
