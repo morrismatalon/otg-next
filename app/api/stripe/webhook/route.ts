@@ -33,6 +33,19 @@ export async function POST(req: NextRequest) {
     }
 
     const supabase = await createClient()
+
+    // Idempotency: skip if order already exists for this session
+    const { data: existing } = await supabase
+      .from('orders')
+      .select('id')
+      .eq('stripe_session_id', session.id)
+      .maybeSingle()
+
+    if (existing) {
+      console.log('[Stripe webhook] order already exists for session', session.id)
+      return NextResponse.json({ received: true })
+    }
+
     const { error } = await supabase.from('orders').insert({
       listing_id: listingId,
       buyer_name: buyerName,

@@ -1,4 +1,5 @@
 import { createClient } from '@/lib/supabase/server'
+import { createBuildClient } from '@/lib/supabase/build'
 import type { DbDesigner, DbListing, DbOrder } from '@/lib/supabase/types'
 
 // ─── Shared shape used by all UI components ──────────────────────────────────
@@ -109,7 +110,7 @@ function dbToOrder(o: DbOrder): Order {
 // ─── Designer Queries ─────────────────────────────────────────────────────────
 
 export async function getAllDesigners(): Promise<Designer[]> {
-  const supabase = await createClient()
+  const supabase = createBuildClient()
 
   const { data: designerRows, error: dErr } = await supabase
     .from('designers')
@@ -132,7 +133,7 @@ export async function getAllDesigners(): Promise<Designer[]> {
 }
 
 export async function getDesignerById(id: string): Promise<Designer | null> {
-  const supabase = await createClient()
+  const supabase = createBuildClient()
 
   const { data, error } = await supabase
     .from('designers')
@@ -170,7 +171,7 @@ export async function getDesignerByUserId(userId: string): Promise<Designer | nu
 }
 
 export async function getDesignerIds(): Promise<string[]> {
-  const supabase = await createClient()
+  const supabase = createBuildClient()
   const { data } = await supabase.from('designers').select('id')
   return (data ?? []).map((d) => d.id)
 }
@@ -178,7 +179,7 @@ export async function getDesignerIds(): Promise<string[]> {
 // ─── Listing Queries ──────────────────────────────────────────────────────────
 
 export async function getAllListings(): Promise<Listing[]> {
-  const supabase = await createClient()
+  const supabase = createBuildClient()
 
   const { data, error } = await supabase
     .from('listings')
@@ -190,7 +191,7 @@ export async function getAllListings(): Promise<Listing[]> {
 }
 
 export async function getListingById(id: string): Promise<Listing | null> {
-  const supabase = await createClient()
+  const supabase = createBuildClient()
 
   const { data, error } = await supabase
     .from('listings')
@@ -203,13 +204,13 @@ export async function getListingById(id: string): Promise<Listing | null> {
 }
 
 export async function getListingIds(): Promise<string[]> {
-  const supabase = await createClient()
+  const supabase = createBuildClient()
   const { data } = await supabase.from('listings').select('id')
   return (data ?? []).map((l) => l.id)
 }
 
 export async function getListingsByDesigner(designerId: string): Promise<Listing[]> {
-  const supabase = await createClient()
+  const supabase = createBuildClient()
 
   const { data, error } = await supabase
     .from('listings')

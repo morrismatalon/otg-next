@@ -92,7 +92,18 @@ begin
   end if;
 end$$;
 
--- 9. Storage bucket for listing images
+-- 9. Allow service role to insert designers (for admin approval flow)
+do $$
+begin
+  if not exists (
+    select 1 from pg_policies where tablename = 'designers' and policyname = 'designers_admin_insert'
+  ) then
+    create policy "designers_admin_insert"
+      on designers for insert with check (auth.role() = 'service_role');
+  end if;
+end$$;
+
+-- 10. Storage bucket for listing images
 insert into storage.buckets (id, name, public)
   values ('listing-images', 'listing-images', true)
   on conflict (id) do nothing;

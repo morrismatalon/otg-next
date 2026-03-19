@@ -73,7 +73,7 @@ export default function NavSearch() {
       id: d.id,
       title: d.name,
       sub: `${d.specialty} · ${d.city}`,
-      href: `/designers/${d.id}`,
+      href: `/studio/${d.id}`,
     }))
 
     const combined = [...designerResults, ...listingResults]

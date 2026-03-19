@@ -51,7 +51,7 @@ export default function Footer() {
 
       <div className={styles.ftBase}>
         <span className={styles.ftCopy}>© Off The Grid 2025 — All designers verified</span>
-        <span className={styles.ftCopy}>Privacy · Terms · Threshold policy</span>
+        <span className={styles.ftCopy}><Link href="/privacy">Privacy</Link> · <Link href="/terms">Terms</Link> · Threshold policy</span>
       </div>
     </footer>
   )
