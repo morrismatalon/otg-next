@@ -1,0 +1,255 @@
+.wrap {
+  padding-top: 88px;
+}
+
+.back {
+  font-family: var(--font-syne), sans-serif;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.19em;
+  text-transform: uppercase;
+  color: var(--faint);
+  padding: 24px 48px;
+  transition: color 0.15s;
+  border-bottom: 1px solid var(--rule);
+  display: block;
+}
+
+.back:hover {
+  color: var(--muted);
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: calc(100vh - 140px);
+}
+
+/* Left: listing summary */
+.summary {
+  border-right: 1px solid var(--rule);
+  display: flex;
+  flex-direction: column;
+}
+
+.summaryImg {
+  position: relative;
+  flex: 1;
+  min-height: 360px;
+  background: var(--faint);
+  overflow: hidden;
+}
+
+.summaryInfo {
+  padding: 32px 48px;
+  border-top: 1px solid var(--rule);
+}
+
+.summaryDesigner {
+  font-family: var(--font-syne), sans-serif;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--faint);
+  margin-bottom: 10px;
+}
+
+.summaryName {
+  font-family: var(--font-im-fell), serif;
+  font-size: clamp(18px, 2.5vw, 28px);
+  color: var(--ink);
+  margin-bottom: 12px;
+  line-height: 1.2;
+}
+
+.summaryPrice {
+  font-size: 18px;
+  font-weight: 300;
+  color: var(--ink);
+  letter-spacing: 0.06em;
+  margin-bottom: 10px;
+}
+
+.summaryStudio {
+  font-family: var(--font-syne), sans-serif;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--faint);
+}
+
+/* Right: form */
+.formCol {
+  padding: 56px 64px 80px;
+  display: flex;
+  flex-direction: column;
+}
+
+.formHeader {
+  margin-bottom: 48px;
+}
+
+.formEyebrow {
+  font-family: var(--font-syne), sans-serif;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--faint);
+  margin-bottom: 16px;
+}
+
+.formHeadline {
+  font-family: var(--font-im-fell), serif;
+  font-size: clamp(28px, 3.5vw, 44px);
+  font-weight: 400;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+
+.formHeadline em {
+  font-style: italic;
+  color: var(--muted);
+}
+
+/* Form fields */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.fieldGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.label {
+  font-family: var(--font-syne), sans-serif;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.19em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.input {
+  font-family: var(--font-dm-mono), monospace;
+  font-size: 10px;
+  font-weight: 300;
+  color: var(--ink);
+  background: none;
+  border: none;
+  border-bottom: 1px solid var(--faint);
+  padding: 10px 0;
+  outline: none;
+  width: 100%;
+  letter-spacing: 0.04em;
+  transition: border-color 0.15s;
+}
+
+.input::placeholder {
+  color: var(--faint);
+}
+
+.input:focus {
+  border-color: var(--muted);
+}
+
+.textarea {
+  font-family: var(--font-dm-mono), monospace;
+  font-size: 10px;
+  font-weight: 300;
+  color: var(--ink);
+  background: none;
+  border: 1px solid var(--faint);
+  padding: 12px;
+  outline: none;
+  width: 100%;
+  letter-spacing: 0.04em;
+  resize: vertical;
+  line-height: 1.8;
+  transition: border-color 0.15s;
+}
+
+.textarea::placeholder {
+  color: var(--faint);
+}
+
+.textarea:focus {
+  border-color: var(--muted);
+}
+
+.formError {
+  font-size: 9px;
+  color: #c0392b;
+  letter-spacing: 0.04em;
+  padding: 12px 0;
+  border-top: 1px solid rgba(192, 57, 43, 0.2);
+}
+
+.submit {
+  font-family: var(--font-syne), sans-serif;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--bg);
+  background: var(--ink);
+  padding: 16px 36px;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.15s;
+  align-self: flex-start;
+  margin-top: 8px;
+  display: inline-block;
+}
+
+.submit:hover {
+  opacity: 0.75;
+}
+
+.submit:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.note {
+  font-size: 9px;
+  line-height: 2;
+  color: var(--faint);
+  letter-spacing: 0.04em;
+  margin-top: 12px;
+  max-width: 360px;
+}
+
+@media (max-width: 768px) {
+  .back {
+    padding: 20px 24px;
+  }
+
+  .layout {
+    grid-template-columns: 1fr;
+  }
+
+  .summary {
+    border-right: none;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .summaryImg {
+    min-height: 280px;
+  }
+
+  .summaryInfo {
+    padding: 24px;
+  }
+
+  .formCol {
+    padding: 40px 24px 64px;
+  }
+}

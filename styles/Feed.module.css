@@ -1,0 +1,41 @@
+.secRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 22px 48px 18px;
+}
+
+.secLink {
+  font-family: var(--font-syne), sans-serif;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.19em;
+  text-transform: uppercase;
+  color: var(--faint);
+  transition: color 0.15s;
+}
+
+.secLink:hover {
+  color: var(--muted);
+}
+
+.listings {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  padding: 0 48px;
+  margin-bottom: 80px;
+}
+
+@media (max-width: 768px) {
+  .secRow {
+    padding: 18px 24px 14px;
+  }
+
+  .listings {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    padding: 0 24px;
+    margin-bottom: 48px;
+  }
+}

@@ -1,0 +1,114 @@
+.designers {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  padding: 0 48px;
+  margin-bottom: 88px;
+}
+
+@media (max-width: 768px) {
+  .secRow {
+    padding: 18px 24px 14px;
+  }
+
+  .designers {
+    grid-template-columns: 1fr;
+    gap: 0;
+    padding: 0 24px;
+    margin-bottom: 56px;
+  }
+
+  .dCard {
+    padding: 20px 0;
+    border-bottom: 1px solid var(--rule);
+  }
+}
+
+.secRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 22px 48px 18px;
+}
+
+.secLink {
+  font-family: var(--font-syne), sans-serif;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.19em;
+  text-transform: uppercase;
+  color: var(--faint);
+  transition: color 0.15s;
+}
+
+.secLink:hover {
+  color: var(--muted);
+}
+
+.dCard {
+  padding: 28px 0 0;
+  cursor: pointer;
+}
+
+.dInit {
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-im-fell), serif;
+  font-size: 13px;
+  color: var(--muted);
+  border: 1px solid var(--faint);
+  margin-bottom: 16px;
+}
+
+.dName {
+  font-family: var(--font-im-fell), serif;
+  font-size: 24px;
+  color: var(--ink);
+  margin-bottom: 8px;
+  line-height: 1.1;
+}
+
+.dMeta {
+  font-family: var(--font-syne), sans-serif;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--faint);
+  line-height: 2.4;
+}
+
+.dStatus {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-top: 14px;
+}
+
+.dDot {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--ink);
+  flex-shrink: 0;
+}
+
+.dDot.off {
+  background: var(--faint);
+}
+
+.dDotLbl {
+  font-family: var(--font-syne), sans-serif;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+.dDotLbl.off {
+  color: var(--faint);
+}

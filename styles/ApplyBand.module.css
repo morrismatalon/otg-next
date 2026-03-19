@@ -1,0 +1,65 @@
+.applyBand {
+  background: #0d0d0b;
+  padding: 80px 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+}
+
+.applyHed {
+  font-family: var(--font-im-fell), serif;
+  font-size: clamp(32px, 4vw, 56px);
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  color: #ffffff;
+  max-width: 520px;
+}
+
+.applyHed em {
+  font-style: italic;
+  color: rgba(255, 255, 255, 0.35);
+}
+
+.applyRight {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: flex-start;
+  flex-shrink: 0;
+  max-width: 300px;
+}
+
+.applySub {
+  font-size: 10px;
+  line-height: 2;
+  color: rgba(255, 255, 255, 0.42);
+  letter-spacing: 0.04em;
+}
+
+.applyBtn {
+  font-family: var(--font-syne), sans-serif;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #0d0d0b;
+  background: #ffffff;
+  padding: 12px 28px;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.15s;
+  display: inline-block;
+}
+
+.applyBtn:hover {
+  opacity: 0.8;
+}
+
+@media (max-width: 768px) {
+  .applyBand {
+    padding: 56px 24px;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

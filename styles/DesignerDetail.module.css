@@ -1,0 +1,186 @@
+.wrap {
+  padding-top: 88px;
+}
+
+.back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-syne), sans-serif;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.19em;
+  text-transform: uppercase;
+  color: var(--faint);
+  padding: 24px 48px;
+  transition: color 0.15s;
+  border-bottom: 1px solid var(--rule);
+  display: block;
+}
+
+.back:hover {
+  color: var(--muted);
+}
+
+.profile {
+  padding: 56px 48px;
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 80px;
+  border-bottom: 1px solid var(--rule);
+}
+
+.profileLeft {
+  display: flex;
+  flex-direction: column;
+}
+
+.dInit {
+  width: 52px;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-im-fell), serif;
+  font-size: 18px;
+  color: var(--muted);
+  border: 1px solid var(--faint);
+  margin-bottom: 24px;
+}
+
+.dName {
+  font-family: var(--font-im-fell), serif;
+  font-size: clamp(32px, 4vw, 52px);
+  font-weight: 400;
+  line-height: 1.0;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  margin-bottom: 20px;
+}
+
+.metaList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+
+.metaRow {
+  display: grid;
+  grid-template-columns: 90px 1fr;
+  gap: 8px;
+}
+
+.metaKey {
+  font-family: var(--font-syne), sans-serif;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--faint);
+}
+
+.metaVal {
+  font-family: var(--font-syne), sans-serif;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.dStatus {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-top: 4px;
+}
+
+.dDot {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--ink);
+  flex-shrink: 0;
+}
+
+.dDotOff {
+  background: var(--faint);
+}
+
+.dDotLbl {
+  font-family: var(--font-syne), sans-serif;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+.dDotLblOff {
+  color: var(--faint);
+}
+
+.profileRight {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.bioLabel {
+  font-family: var(--font-syne), sans-serif;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.19em;
+  text-transform: uppercase;
+  color: var(--faint);
+  margin-bottom: 20px;
+}
+
+.bio {
+  font-size: 13px;
+  line-height: 2.2;
+  color: var(--muted);
+  letter-spacing: 0.03em;
+  max-width: 560px;
+}
+
+.listingsSection {
+  padding: 0 48px 88px;
+}
+
+.secRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 28px 0 20px;
+  border-bottom: 1px solid var(--rule);
+  margin-bottom: 32px;
+}
+
+.listingsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+@media (max-width: 768px) {
+  .back {
+    padding: 20px 24px;
+  }
+
+  .profile {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    padding: 36px 24px;
+  }
+
+  .listingsSection {
+    padding: 0 24px 64px;
+  }
+
+  .listingsGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+}

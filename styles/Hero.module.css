@@ -1,0 +1,94 @@
+.hero {
+  padding-top: 88px;
+  min-height: 100vh;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding-bottom: 72px;
+  padding-left: 48px;
+  padding-right: 48px;
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+}
+
+.heroBg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+}
+
+.heroOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.05) 0%, rgba(0, 0, 0, 0.52) 100%);
+}
+
+.heroContent {
+  position: relative;
+  z-index: 1;
+}
+
+.heroEyebrow {
+  font-family: var(--font-syne), sans-serif;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.5);
+  margin-bottom: 16px;
+  animation: up 1s 0.05s ease both;
+}
+
+.heroHed {
+  font-family: var(--font-im-fell), serif;
+  font-weight: 400;
+  font-size: clamp(64px, 9.5vw, 148px);
+  line-height: 0.9;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+  max-width: 900px;
+  margin-bottom: 48px;
+  animation: up 1s 0.15s ease both;
+}
+
+.heroHed em {
+  font-style: italic;
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.heroSub {
+  font-size: 10px;
+  line-height: 2.1;
+  color: rgba(255, 255, 255, 0.5);
+  max-width: 260px;
+  letter-spacing: 0.04em;
+  animation: up 1s 0.28s ease both;
+}
+
+@keyframes up {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .hero {
+    padding-left: 24px;
+    padding-right: 24px;
+    padding-bottom: 48px;
+  }
+
+  .heroHed {
+    font-size: clamp(48px, 12vw, 80px);
+    margin-bottom: 28px;
+  }
+}

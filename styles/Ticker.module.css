@@ -1,0 +1,32 @@
+.ticker {
+  overflow: hidden;
+  height: 30px;
+  display: flex;
+  align-items: center;
+}
+
+.tickerInner {
+  display: flex;
+  white-space: nowrap;
+  animation: roll 36s linear infinite;
+}
+
+.tItem {
+  font-family: var(--font-syne), sans-serif;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--faint);
+  padding: 0 52px;
+  flex-shrink: 0;
+}
+
+.tItem b {
+  color: var(--muted);
+}
+
+@keyframes roll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}

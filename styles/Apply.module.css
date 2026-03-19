@@ -1,0 +1,229 @@
+.header {
+  background: var(--ink);
+  padding: 140px 48px 80px;
+}
+
+.eyebrow {
+  font-family: var(--font-syne), sans-serif;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.3);
+  margin-bottom: 20px;
+}
+
+.headline {
+  font-family: var(--font-im-fell), serif;
+  font-size: clamp(40px, 6vw, 80px);
+  font-weight: 400;
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+  max-width: 700px;
+  margin-bottom: 32px;
+}
+
+.headline em {
+  font-style: italic;
+  color: rgba(255, 255, 255, 0.35);
+}
+
+.headerSub {
+  font-size: 10px;
+  line-height: 2.1;
+  color: rgba(255, 255, 255, 0.42);
+  letter-spacing: 0.04em;
+  max-width: 360px;
+}
+
+.criteria {
+  background: var(--ink);
+  padding: 0 48px 72px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 48px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.criterionN {
+  font-family: var(--font-syne), sans-serif;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.18);
+  margin-bottom: 12px;
+}
+
+.criterionText {
+  font-size: 10px;
+  line-height: 2;
+  color: rgba(255, 255, 255, 0.42);
+  letter-spacing: 0.04em;
+}
+
+.criterionText strong {
+  color: rgba(255, 255, 255, 0.72);
+  font-weight: 400;
+}
+
+.formSection {
+  padding: 72px 48px 100px;
+  display: grid;
+  grid-template-columns: 1fr 440px;
+  gap: 100px;
+  align-items: start;
+}
+
+.formIntro {
+  padding-top: 8px;
+}
+
+.formIntroLabel {
+  font-family: var(--font-syne), sans-serif;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.19em;
+  text-transform: uppercase;
+  color: var(--faint);
+  margin-bottom: 20px;
+}
+
+.formIntroHed {
+  font-family: var(--font-im-fell), serif;
+  font-size: clamp(24px, 3vw, 38px);
+  font-weight: 400;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  margin-bottom: 20px;
+}
+
+.formIntroHed em {
+  font-style: italic;
+  color: var(--muted);
+}
+
+.formIntroCopy {
+  font-size: 10px;
+  line-height: 2.2;
+  color: var(--muted);
+  letter-spacing: 0.03em;
+  max-width: 340px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.fieldGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.label {
+  font-family: var(--font-syne), sans-serif;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.19em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.input {
+  font-family: var(--font-dm-mono), monospace;
+  font-size: 10px;
+  font-weight: 300;
+  color: var(--ink);
+  background: none;
+  border: none;
+  border-bottom: 1px solid var(--faint);
+  padding: 10px 0;
+  outline: none;
+  width: 100%;
+  letter-spacing: 0.04em;
+  transition: border-color 0.15s;
+}
+
+.input::placeholder {
+  color: var(--faint);
+}
+
+.input:focus {
+  border-color: var(--muted);
+}
+
+.select {
+  font-family: var(--font-syne), sans-serif;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  background: none;
+  border: none;
+  border-bottom: 1px solid var(--faint);
+  padding: 10px 24px 10px 0;
+  outline: none;
+  width: 100%;
+  appearance: none;
+  cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23d0cec8'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 4px center;
+  transition: border-color 0.15s;
+}
+
+.select:focus {
+  border-color: var(--muted);
+}
+
+.submit {
+  font-family: var(--font-syne), sans-serif;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--bg);
+  background: var(--ink);
+  padding: 16px 36px;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.15s;
+  align-self: flex-start;
+  margin-top: 8px;
+}
+
+.submit:hover {
+  opacity: 0.75;
+}
+
+.note {
+  font-size: 9px;
+  line-height: 2;
+  color: var(--faint);
+  letter-spacing: 0.04em;
+  margin-top: 8px;
+}
+
+@media (max-width: 768px) {
+  .header {
+    padding: 100px 24px 56px;
+  }
+
+  .criteria {
+    padding: 0 24px 48px;
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .formSection {
+    padding: 48px 24px 80px;
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+}

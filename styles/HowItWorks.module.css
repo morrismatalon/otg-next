@@ -1,0 +1,52 @@
+.how {
+  padding: 0 48px 88px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 48px;
+}
+
+.howStep {
+  font-family: var(--font-syne), sans-serif;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--faint);
+  margin-bottom: 14px;
+}
+
+.howTitle {
+  font-family: var(--font-im-fell), serif;
+  font-size: 20px;
+  color: var(--ink);
+  margin-bottom: 12px;
+  line-height: 1.2;
+}
+
+.howCopy {
+  font-size: 10px;
+  line-height: 2.1;
+  color: var(--muted);
+  letter-spacing: 0.03em;
+}
+
+.secRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 22px 48px 18px;
+  margin-top: 56px;
+}
+
+@media (max-width: 768px) {
+  .secRow {
+    padding: 18px 24px 14px;
+    margin-top: 36px;
+  }
+
+  .how {
+    padding: 0 24px 64px;
+    grid-template-columns: 1fr 1fr;
+    gap: 28px;
+  }
+}
