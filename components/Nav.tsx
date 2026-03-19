@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/server'
+import NavSearch from '@/components/NavSearch'
 import styles from '@/styles/Nav.module.css'
 
 export default async function Nav() {
@@ -19,13 +20,15 @@ export default async function Nav() {
             style={{ mixBlendMode: 'multiply', height: 26, width: 'auto' }}
           />
         </Link>
+
+        <NavSearch />
+
         <div className={styles.navTopRight}>
           {user ? (
             <Link href="/dashboard">Dashboard</Link>
           ) : (
             <Link href="/auth/sign-in">Sign in</Link>
           )}
-          <Link href="/browse">Browse</Link>
           <Link href="/apply" className={styles.cta}>Apply to sell</Link>
         </div>
       </nav>

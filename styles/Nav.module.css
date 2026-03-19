@@ -11,6 +11,7 @@
   justify-content: space-between;
   padding: 0 48px;
   border-bottom: 1px solid var(--rule);
+  gap: 24px;
 }
 
 .navLogo img {
