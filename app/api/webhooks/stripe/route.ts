@@ -1,0 +1,71 @@
+import { NextRequest, NextResponse } from 'next/server'
+import Stripe from 'stripe'
+import { getStripe } from '@/lib/stripe'
+import { createBuildClient } from '@/lib/supabase/build'
+
+export async function POST(req: NextRequest) {
+  const body = await req.text()
+  const sig = req.headers.get('stripe-signature')
+
+  if (!sig) {
+    return NextResponse.json({ error: 'No signature' }, { status: 400 })
+  }
+
+  let event: Stripe.Event
+  try {
+    event = getStripe().webhooks.constructEvent(
+      body,
+      sig,
+      process.env.STRIPE_WEBHOOK_SECRET!
+    )
+  } catch (err) {
+    console.error('[Stripe webhook] signature verification failed:', err)
+    return NextResponse.json({ error: 'Invalid signature' }, { status: 400 })
+  }
+
+  if (event.type === 'checkout.session.completed') {
+    const session = event.data.object as Stripe.Checkout.Session
+    const { listingId, buyerName, buyerEmail, message } = session.metadata ?? {}
+
+    if (!listingId || !buyerName || !buyerEmail) {
+      console.error('[Stripe webhook] missing metadata on session', session.id)
+      return NextResponse.json({ error: 'Missing metadata' }, { status: 400 })
+    }
+
+    const supabase = createBuildClient()
+
+    // Idempotency: skip if order already exists for this session
+    const { data: existing } = await supabase
+      .from('orders')
+      .select('id')
+      .eq('stripe_session_id', session.id)
+      .maybeSingle()
+
+    if (existing) {
+      console.log('[Stripe webhook] order already exists for session', session.id)
+      return NextResponse.json({ received: true })
+    }
+
+    const { error } = await supabase.from('orders').insert({
+      listing_id: listingId,
+      buyer_name: buyerName,
+      buyer_email: buyerEmail,
+      message: message || null,
+      stripe_session_id: session.id,
+      stripe_payment_intent:
+        typeof session.payment_intent === 'string'
+          ? session.payment_intent
+          : (session.payment_intent?.id ?? null),
+      status: 'confirmed',
+    })
+
+    if (error) {
+      console.error('[Stripe webhook] failed to insert order:', error.message)
+      return NextResponse.json({ error: 'DB insert failed' }, { status: 500 })
+    }
+
+    console.log('[Stripe webhook] order created for session', session.id)
+  }
+
+  return NextResponse.json({ received: true })
+}
