@@ -1,17 +1,9 @@
 import type { Metadata } from 'next'
-import { Space_Grotesk, DM_Mono, Syne } from 'next/font/google'
+import { DM_Mono, Syne } from 'next/font/google'
 import ProgressBar from '@/components/ProgressBar'
 import AuthProvider from '@/components/AuthProvider'
 import { SITE_URL } from '@/lib/config'
 import './globals.css'
-
-const spaceGrotesk = Space_Grotesk({
-  weight: ['400'],
-  style: ['normal'],
-  subsets: ['latin'],
-  variable: '--font-space-grotesk',
-  display: 'swap',
-})
 
 const dmMono = DM_Mono({
   weight: ['300', '400'],
@@ -62,7 +54,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html
       lang="en"
-      className={`${spaceGrotesk.variable} ${dmMono.variable} ${syne.variable}`}
+      className={`${syne.variable}`}
     >
       <body>
         <ProgressBar />
