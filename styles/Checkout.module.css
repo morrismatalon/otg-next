@@ -56,7 +56,7 @@
 }
 
 .summaryName {
-  font-family: var(--font-im-fell), serif;
+  font-family: var(--font-space-grotesk), serif;
   font-size: clamp(18px, 2.5vw, 28px);
   color: var(--ink);
   margin-bottom: 12px;
@@ -102,7 +102,7 @@
 }
 
 .formHeadline {
-  font-family: var(--font-im-fell), serif;
+  font-family: var(--font-space-grotesk), serif;
   font-size: clamp(28px, 3.5vw, 44px);
   font-weight: 400;
   line-height: 1.05;

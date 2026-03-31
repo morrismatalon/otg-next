@@ -1,15 +1,15 @@
 import type { Metadata } from 'next'
-import { IM_Fell_English, DM_Mono, Syne } from 'next/font/google'
+import { Space_Grotesk, DM_Mono, Syne } from 'next/font/google'
 import ProgressBar from '@/components/ProgressBar'
 import AuthProvider from '@/components/AuthProvider'
 import { SITE_URL } from '@/lib/config'
 import './globals.css'
 
-const imFellEnglish = IM_Fell_English({
+const spaceGrotesk = Space_Grotesk({
   weight: ['400'],
   style: ['normal', 'italic'],
   subsets: ['latin'],
-  variable: '--font-im-fell',
+  variable: '--font-space-grotesk',
   display: 'swap',
 })
 
@@ -62,7 +62,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html
       lang="en"
-      className={`${imFellEnglish.variable} ${dmMono.variable} ${syne.variable}`}
+      className={`${spaceGrotesk.variable} ${dmMono.variable} ${syne.variable}`}
     >
       <body>
         <ProgressBar />

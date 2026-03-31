@@ -33,7 +33,7 @@
 }
 
 .cardName {
-  font-family: var(--font-im-fell), serif;
+  font-family: var(--font-space-grotesk), serif;
   font-size: 17px;
   color: var(--ink);
   line-height: 1.25;

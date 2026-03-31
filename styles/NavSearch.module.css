@@ -117,7 +117,7 @@
 }
 
 .resultTitle {
-  font-family: var(--font-im-fell), serif;
+  font-family: var(--font-space-grotesk), serif;
   font-size: 14px;
   color: var(--ink);
   line-height: 1.2;

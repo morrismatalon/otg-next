@@ -87,7 +87,7 @@ export default async function AdminPage() {
                   <td
                     colSpan={6}
                     style={{
-                      fontFamily: 'var(--font-im-fell)',
+                      fontFamily: 'var(--font-space-grotesk)',
                       fontStyle: 'italic',
                       color: 'var(--faint)',
                     }}

@@ -44,7 +44,7 @@
 }
 
 .heroHed {
-  font-family: var(--font-im-fell), serif;
+  font-family: var(--font-space-grotesk), serif;
   font-weight: 400;
   font-size: clamp(64px, 9.5vw, 148px);
   line-height: 0.9;

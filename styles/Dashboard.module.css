@@ -27,7 +27,7 @@
 }
 
 .headline {
-  font-family: var(--font-im-fell), serif;
+  font-family: var(--font-space-grotesk), serif;
   font-size: clamp(28px, 3.5vw, 44px);
   font-weight: 400;
   line-height: 1.05;
@@ -85,7 +85,7 @@
 }
 
 .tileValue {
-  font-family: var(--font-im-fell), serif;
+  font-family: var(--font-space-grotesk), serif;
   font-size: 36px;
   color: var(--ink);
   line-height: 1;
@@ -190,7 +190,7 @@
 }
 
 .listingName {
-  font-family: var(--font-im-fell), serif;
+  font-family: var(--font-space-grotesk), serif;
   font-size: 14px;
   color: var(--ink);
   padding: 0 16px;
@@ -276,7 +276,7 @@
 }
 
 .table td:first-child {
-  font-family: var(--font-im-fell), serif;
+  font-family: var(--font-space-grotesk), serif;
   font-size: 14px;
   color: var(--ink);
 }

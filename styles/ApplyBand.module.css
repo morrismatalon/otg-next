@@ -8,7 +8,7 @@
 }
 
 .applyHed {
-  font-family: var(--font-im-fell), serif;
+  font-family: var(--font-space-grotesk), serif;
   font-size: clamp(32px, 4vw, 56px);
   line-height: 1.05;
   letter-spacing: -0.01em;

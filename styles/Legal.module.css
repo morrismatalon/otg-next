@@ -19,7 +19,7 @@
 }
 
 .headline {
-  font-family: var(--font-im-fell), serif;
+  font-family: var(--font-space-grotesk), serif;
   font-size: clamp(40px, 5vw, 68px);
   font-weight: 400;
   line-height: 0.92;

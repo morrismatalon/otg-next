@@ -23,7 +23,7 @@ export default function ApplySuccessPage() {
     >
       <p
         style={{
-          fontFamily: 'var(--font-im-fell), serif',
+          fontFamily: 'var(--font-space-grotesk), serif',
           fontSize: 'clamp(28px, 5vw, 52px)',
           fontWeight: 400,
           lineHeight: 1.1,

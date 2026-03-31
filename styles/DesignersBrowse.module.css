@@ -14,7 +14,7 @@
 }
 
 .headline {
-  font-family: var(--font-im-fell), serif;
+  font-family: var(--font-space-grotesk), serif;
   font-size: clamp(40px, 6vw, 80px);
   font-weight: 400;
   line-height: 0.95;
@@ -140,7 +140,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: var(--font-im-fell), serif;
+  font-family: var(--font-space-grotesk), serif;
   font-size: 13px;
   color: var(--muted);
   border: 1px solid var(--faint);
@@ -148,7 +148,7 @@
 }
 
 .dName {
-  font-family: var(--font-im-fell), serif;
+  font-family: var(--font-space-grotesk), serif;
   font-size: 24px;
   color: var(--ink);
   margin-bottom: 8px;
@@ -205,7 +205,7 @@
 .empty {
   grid-column: span 3;
   padding: 80px 0;
-  font-family: var(--font-im-fell), serif;
+  font-family: var(--font-space-grotesk), serif;
   font-size: 18px;
   color: var(--faint);
   font-style: italic;
