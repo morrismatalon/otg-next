@@ -8,16 +8,11 @@ export default function Hero() {
     >
       <div className={styles.heroOverlay} />
       <div className={styles.heroContent}>
-        <div className={styles.heroEyebrow}>
-          Verified independent studios — No brands. No resellers.
-        </div>
+      
         <h1 className={styles.heroHed}>
-          Off The Grid.<br />
-          <em>designers</em>
+          new arrivals<br />
         </h1>
-        <p className={styles.heroSub}>
-          a marketplace for independent fashion designers
-        </p>
+     
       </div>
     </section>
   )
