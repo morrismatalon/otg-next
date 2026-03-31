@@ -12,12 +12,11 @@ export default function Hero() {
           Verified independent studios — No brands. No resellers.
         </div>
         <h1 className={styles.heroHed}>
-          No brands.<br />
-          <em>Only people.</em>
+          Off The Grid.<br />
+          <em>designers</em>
         </h1>
         <p className={styles.heroSub}>
-          A marketplace exclusively for independent fashion designers — bedroom
-          studios and small offices. Verified. Not for everyone.
+          a marketplace for independent fashion designers
         </p>
       </div>
     </section>
