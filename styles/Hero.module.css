@@ -44,11 +44,11 @@
 }
 
 .heroHed {
-  font-family: var(--font-syne, sansserif;
-  font-weight: 400;
-  font-size: clamp(64px, 9.5vw, 148px);
-  line-height: 0.9;
-  letter-spacing: -0.02em;
+  font-family: var(--font-syne), sans-serif;
+  font-weight: 700;
+  font-size: 113px;
+  line-height: 1;
+  letter-spacing: 0.42em;
   color: #ffffff;
   max-width: 900px;
   margin-bottom: 48px;
@@ -87,8 +87,8 @@
     padding-bottom: 48px;
   }
 
-  .heroHed {
-    font-size: clamp(48px, 12vw, 80px);
-    margin-bottom: 28px;
-  }
+.heroHed {
+  font-size: 48px;
+  letter-spacing: 0.2em;
+  margin-bottom: 28px;
 }
